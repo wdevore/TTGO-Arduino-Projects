@@ -1,6 +1,6 @@
 /*
   DetectButton
-
+  TTGO's button in on GPI0 0.
   Reads a digital input on pin 0, prints the result to the Serial Monitor.
   When the button is pushed a "0" is sent to the monitor else a "1".
 
@@ -18,7 +18,7 @@ int buttonState = 0;
 // the setup routine runs once when you press reset:
 void setup() {
   // initialize serial communication at 9600 bits per second:
-  Serial.begin(115200);
+  Serial.begin(9600);
   // make the pushbutton's pin an input:
   pinMode(pushButton, INPUT);
 }
