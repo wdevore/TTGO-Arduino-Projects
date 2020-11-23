@@ -10,7 +10,8 @@
             "intelliSenseMode": "gcc-x64",
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu17",
-            "cppStandard": "gnu++14"
+            "cppStandard": "gnu++14",
+            "compileCommands": "/home/iposthuman/esp/hello_world/build/compile_commands.json"
         }
     ],
     "version": 4

@@ -38,30 +38,33 @@
 // Note: pin assignment is important. If pins A/B are assigned
 // backwards it doesn't detect rotation.
 // ----------------------------------------------------------
-int brightness = 0;    // how bright the LED is, start at half brightness
+int brightness = 0; // how bright the LED is, start at half brightness
 const int maxValue = 10;
-const int fadeAmount = 1;    // how many points to fade the LED by
+const int fadeAmount = 1; // how many points to fade the LED by
 unsigned long currentTime;
 unsigned long loopTime;
-const int pin_A = 15;  // The chosen "lead" pin based on the loop code.
+const int pin_A = 15; // The chosen "lead" pin based on the loop code.
 const int pin_B = 2;
 unsigned char encoder_A;
 unsigned char encoder_B;
-unsigned char encoder_A_prev=0;
+unsigned char encoder_A_prev = 0;
 
-void setup() {
+void setup()
+{
   approach2_setup();
 }
 
-void loop() {
+void loop()
+{
   approach2_loop();
 }
 
-void approach2_setup() {
+void approach2_setup()
+{
   pinMode(pin_A, INPUT_PULLUP);
   pinMode(pin_B, INPUT_PULLUP);
   currentTime = millis();
-  loopTime = currentTime; 
+  loopTime = currentTime;
   // Start the serial monitor for debugging
   Serial.begin(9600);
 }
@@ -70,41 +73,47 @@ void approach2_setup() {
 //  // set the two pins as inputs with internal pullups
 //  pinMode(pinA, INPUT_PULLUP);
 //  pinMode(pinB, INPUT_PULLUP);
-//  
+//
 //  // Set up the timing of the polling
 //  currentTime = millis();
-//  lastTime = currentTime; 
-//  
+//  lastTime = currentTime;
+//
 //  // Start the serial monitor for debugging
 //  Serial.begin(9600);
 //}
 
-void approach2_loop() {
-// get the current elapsed time
+void approach2_loop()
+{
+  // get the current elapsed time
   currentTime = millis();
-  if(currentTime >= (loopTime + 5)){
-    // 5ms since last check of encoder = 200Hz  
-    encoder_A = digitalRead(pin_A);    // Read encoder pins
-    encoder_B = digitalRead(pin_B);   
-    if((!encoder_A) && (encoder_A_prev)){
-      // A has gone from high to low 
-      if(!encoder_B) {
+  if (currentTime >= (loopTime + 5))
+  {
+    // 5ms since last check of encoder = 200Hz
+    encoder_A = digitalRead(pin_A); // Read encoder pins
+    encoder_B = digitalRead(pin_B);
+    if ((!encoder_A) && (encoder_A_prev))
+    {
+      // A has gone from high to low
+      if (!encoder_B)
+      {
         // B is high so clockwise
         // increase the brightness, dont go over maxValue
-        if(brightness + fadeAmount <= maxValue) brightness += fadeAmount;               
-      }   
-      else {
-        // B is low so counter-clockwise      
+        if (brightness + fadeAmount <= maxValue)
+          brightness += fadeAmount;
+      }
+      else
+      {
+        // B is low so counter-clockwise
         // decrease the brightness, dont go below 0
-        if(brightness - fadeAmount >= 0) brightness -= fadeAmount;               
-      }   
+        if (brightness - fadeAmount >= 0)
+          brightness -= fadeAmount;
+      }
+    }
+    encoder_A_prev = encoder_A; // Store value of A for next time
 
-    }   
-    encoder_A_prev = encoder_A;     // Store value of A for next time    
-    
     Serial.println(brightness);
-   
-    loopTime = currentTime;  // Updates loopTime
+
+    loopTime = currentTime; // Updates loopTime
   }
   // Other processing can be done here
 }
@@ -112,14 +121,14 @@ void approach2_loop() {
 //void approach1_loop() {
 //  // Read elapsed time
 //  currentTime = millis();
-//  
+//
 //  // Check if it's time to read
 //  if(currentTime >= (lastTime + 5))
 //  {
 //    // read the two pins
 //    encA = digitalRead(pinA);
 //    encB = digitalRead(pinB);
-//    
+//
 //    // check if A has gone from high to low
 //    if ((!encA) && (lastA))
 //    {
@@ -129,7 +138,7 @@ void approach2_loop() {
 //        // clockwise
 //        if (reading + changeamnt <= highest)
 //        {
-//          reading = reading + changeamnt; 
+//          reading = reading + changeamnt;
 //        }
 //      }
 //      else
@@ -137,13 +146,13 @@ void approach2_loop() {
 //        // anti-clockwise
 //        if (reading - changeamnt >= lowest)
 //        {
-//          reading = reading - changeamnt; 
+//          reading = reading - changeamnt;
 //        }
 //      }
 //      // Output reading for debugging
 //      Serial.println(reading);
 //    }
-//    
+//
 //    // store reading of A and millis for next loop
 //    lastA = encA;
 //    lastTime = currentTime;
